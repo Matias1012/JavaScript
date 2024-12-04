@@ -1,4 +1,4 @@
-
+/* 
 
 function presentarUsuario(nombre, edad) {
     console.log("Bienvenido")
@@ -37,18 +37,56 @@ function retornarProductoSugerido(edad) {
 
 let NombreDelUsuario =  prompt("ingrese su nombre");
 let EdadDelUsuario =  Number(prompt("ingrese su edad"));
-let BebidaDelUsuario =  prompt("ingrese su bebida");
+let BebidaDelUsuario =  prompt("ingrese su bebida"); */
 
 let productos = [
-    { id: 1, nombre: "gaseosa", precio: 2000, stock: 5, categoria: "bebida sin alcohol"},
-    { id: 3, nombre: "agua", precio: 1000, stock: 7, categoria: "bebida sin alcohol"},
-    { id: 4, nombre: "jugo", precio: 1500, stock: 2, categoria: "bebida sin alcohol"},
-    { id: 6, nombre: "cerveza", precio: 3000, stock: 6, categoria: "bebida alcoholica"},
-    { id: 8, nombre: "whisky", precio: 9000, stock: 2, categoria: "bebida alcoholica"},
-    { id: 9, nombre: "fernet", precio: 5500, stock: 5, categoria: "bebida alcoholica"},
+    { id: 1, nombre: "gaseosa", precio: 2000, stock: 5, categoria: "bebida sin alcohol", rutaImagen: "gaseosa.png" },
+    { id: 3, nombre: "agua", precio: 1000, stock: 7, categoria: "bebida sin alcohol", rutaImagen: "agua.png"},
+    { id: 4, nombre: "jugo", precio: 1500, stock: 2, categoria: "bebida sin alcohol", rutaImagen: "jugo.jpg"},
+    { id: 6, nombre: "cerveza", precio: 3000, stock: 6, categoria: "bebida alcoholica", rutaImagen: "cerveza.png"},
+    { id: 8, nombre: "whisky", precio: 9000, stock: 2, categoria: "bebida alcoholica", rutaImagen: "whisky.jpg"},
+    { id: 9, nombre: "fernet", precio: 5500, stock: 5, categoria: "bebida alcoholica", rutaImagen: "fernet.jpg"},
 ];
 
-const ProductoBuscado = productos.find((producto) => { 
+function crearTarjetaProductos (){
+    let contenedor = document.getElementById ("ContenedorProductos")
+    productos.forEach(producto => {
+        contenedor.innerHTML += `<div class='item-producto'>
+            <div class='producto'>
+                <img src='Imagenes/${producto.rutaImagen}'></img>
+                <h3>${producto.nombre}</h3>
+            </div>
+            <div class='formulario'>
+                <div class="mb-10">
+                    <span> Precio </span>
+                    <strong>${producto.precio}</strong>
+                </div>
+                <div class="mb-10">
+                    <span> Cantidad </span>
+                    <input id='cantidad-${producto.id}' type='number' />
+                </div>
+                <br> <br>
+                <button class="btn" onClick="agregarCarrito(${producto.id}, ${producto.precio})"> Agregar </button> 
+            </div>
+        </div>
+        `
+    });
+}
+crearTarjetaProductos()
+
+let total = 0
+
+function agregarCarrito(idPrducto, precio) {
+    let idCampoCantidad = document.getElementById(`cantidad-${idPrducto}`)
+    let valorCantidad = idCampoCantidad.value
+    
+    total = (valorCantidad * precio ) + total
+    let totalElement = document.getElementById("total")
+    totalElement.innerHTML = total
+}
+
+
+/* const ProductoBuscado = productos.find((producto) => { 
     return  producto.id === 4
 });
 
@@ -78,3 +116,4 @@ if (EdadDelUsuario >= 18) {
     const ProductoNoEncontrado = productos.find(producto => producto.id === 7)
     console.log(bebidasSinAlcohol)
 }
+ */

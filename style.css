@@ -1,0 +1,10 @@
+#ContenedorProductos {
+    display: flex;
+}
+.producto > img {
+    width: 200px;
+}
+
+.formulario >.mb-10 {
+    margin-bottom: 10px;
+}
