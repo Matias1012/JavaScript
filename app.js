@@ -1,3 +1,12 @@
+let productos = [
+    { id: 1, nombre: "gaseosa", precio: 2000, stock: 5, categoria: "bebida sin alcohol", rutaImagen: "gaseosa.png" },
+    { id: 3, nombre: "agua", precio: 1000, stock: 7, categoria: "bebida sin alcohol", rutaImagen: "agua.png"},
+    { id: 4, nombre: "jugo", precio: 1500, stock: 2, categoria: "bebida sin alcohol", rutaImagen: "jugo.jpg"},
+    { id: 6, nombre: "cerveza", precio: 3000, stock: 6, categoria: "bebida alcoholica", rutaImagen: "cerveza.png"},
+    { id: 8, nombre: "whisky", precio: 9000, stock: 2, categoria: "bebida alcoholica", rutaImagen: "whisky.jpg"},
+    { id: 9, nombre: "fernet", precio: 5500, stock: 5, categoria: "bebida alcoholica", rutaImagen: "fernet.jpg"},
+];
+
 /* 
 
 function presentarUsuario(nombre, edad) {
@@ -33,20 +42,55 @@ function retornarProductoSugerido(edad) {
     return productoSugerido
 } 
 
-
-
 let NombreDelUsuario =  prompt("ingrese su nombre");
 let EdadDelUsuario =  Number(prompt("ingrese su edad"));
 let BebidaDelUsuario =  prompt("ingrese su bebida"); */
 
-let productos = [
-    { id: 1, nombre: "gaseosa", precio: 2000, stock: 5, categoria: "bebida sin alcohol", rutaImagen: "gaseosa.png" },
-    { id: 3, nombre: "agua", precio: 1000, stock: 7, categoria: "bebida sin alcohol", rutaImagen: "agua.png"},
-    { id: 4, nombre: "jugo", precio: 1500, stock: 2, categoria: "bebida sin alcohol", rutaImagen: "jugo.jpg"},
-    { id: 6, nombre: "cerveza", precio: 3000, stock: 6, categoria: "bebida alcoholica", rutaImagen: "cerveza.png"},
-    { id: 8, nombre: "whisky", precio: 9000, stock: 2, categoria: "bebida alcoholica", rutaImagen: "whisky.jpg"},
-    { id: 9, nombre: "fernet", precio: 5500, stock: 5, categoria: "bebida alcoholica", rutaImagen: "fernet.jpg"},
-];
+let camposUsuarios = [
+    { id: "nombre", nombre: "Nombre", type:"text" },
+    { id: "edad", nombre: "Edad", type:"number" },
+]
+
+function mostrarUsuario() {
+    let containerLogin = document.getElementById("containerLogin")
+    camposUsuarios.forEach(element => {
+        containerLogin.innerHTML += `<div>
+            <div>
+                <span> ${element.nombre} </span>
+                <input id='${element.id}' type=${element.type} />
+            </div>
+        </div>`
+    })
+
+    containerLogin.innerHTML += `<div>
+        <button onClick='validarUsuario()'> Log in </button>
+     </div>`
+    
+}
+
+mostrarUsuario()
+
+function validarUsuario() {
+    let NombreDelUsuario =  document.getElementById("nombre")
+    let EdadDelUsuario =  document.getElementById("edad").value;
+    let containerProductos = document.getElementById("containerProductos");
+    let containerLogin = document.getElementById("containerLogin");
+    //let BebidaDelUsuario =  prompt("ingrese su bebida"); 
+
+    let bebidasAlcoholicas = productos.filter(producto => producto.categoria === "bebida alcoholica")
+    let bebidasSinAlcohol = productos.filter(producto => producto.categoria === "bebida sin alcohol")
+    
+    containerLogin.classList.add("ocultar")
+    containerProductos.classList.remove("ocultar")
+
+    if (Number(EdadDelUsuario) < 18) {
+        console.log(bebidasAlcoholicas)
+        //const bebidaBuscada = bebidasAlcoholicas.find(producto => producto.nombre === BebidaDelUsuario)
+        productos = bebidasSinAlcohol
+    }
+    crearTarjetaProductos()
+
+}
 
 function crearTarjetaProductos (){
     let contenedor = document.getElementById ("ContenedorProductos")
@@ -72,7 +116,6 @@ function crearTarjetaProductos (){
         `
     });
 }
-crearTarjetaProductos()
 
 let total = 0
 
@@ -100,20 +143,4 @@ if (ProductoNoEncontrado === undefined) {
     console.log("No se encuentra el Producto" )
 }
 
-let bebidasAlcoholicas = productos.filter(producto => producto.categoria === "bebida alcoholica")
-let bebidasSinAlcohol = productos.filter(producto => producto.categoria === "bebida sin alcohol")
-
-if (EdadDelUsuario >= 18) {
-    console.log(bebidasAlcoholicas)
-    
-    const bebidaBuscada = bebidasAlcoholicas.find(producto => producto.nombre === BebidaDelUsuario)
-    if (bebidaBuscada) {
-        console.log("LA bebida es "+ bebidaBuscada.nombre)
-    } else {
-        console.log("No se encontro la bebida")
-    }
-} else {
-    const ProductoNoEncontrado = productos.find(producto => producto.id === 7)
-    console.log(bebidasSinAlcohol)
-}
  */
