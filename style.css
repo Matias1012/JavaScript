@@ -11,3 +11,21 @@
 .ocultar {
     display: none;
 }
+
+.align-center{
+    text-align: center;
+}
+
+table {
+    margin-left: 23px;
+    text-align: center;
+    width: 500px !important;
+}
+
+#ButtonConfirmarCompra {
+    margin-left: 20px;
+}
+
+.flex {
+    display: flex;
+}

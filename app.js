@@ -7,6 +7,9 @@ let productos = [
     { id: 9, nombre: "fernet", precio: 5500, stock: 5, categoria: "bebida alcoholica", rutaImagen: "fernet.jpg"},
 ];
 
+let carritoDeProductos = []
+let total = 0
+
 /* 
 
 function presentarUsuario(nombre, edad) {
@@ -117,7 +120,7 @@ function crearTarjetaProductos (){
     });
 }
 
-let total = 0
+
 
 function agregarCarrito(idPrducto, precio) {
     let idCampoCantidad = document.getElementById(`cantidad-${idPrducto}`)
@@ -126,8 +129,45 @@ function agregarCarrito(idPrducto, precio) {
     total = (valorCantidad * precio ) + total
     let totalElement = document.getElementById("total")
     totalElement.innerHTML = total
+
+    const productoSeleccionado = productos.find(producto => producto.id === idPrducto )
+
+    carritoDeProductos.push({
+        idPrducto: idPrducto,
+        nombre: productoSeleccionado.nombre,
+        cantidad: valorCantidad,
+        precio: productoSeleccionado.precio
+    })
 }
 
+function irCarrito(){
+    let containerProductos = document.getElementById("containerProductos");
+    let carrito = document.getElementById("carrito");
+
+    containerProductos.classList.add("ocultar")
+    carrito.classList.remove("ocultar")
+
+    let totalCarrito = document.getElementById("totalCarrito")
+    totalCarrito.innerHTML = `El total de su compra es de  $${total}`
+
+
+    let listadoProductos = document.getElementById("listadoProductos")
+    listadoProductos.innerHTML = ''
+    
+    carritoDeProductos.forEach((element) => {
+        listadoProductos.innerHTML += `<tr class="align-center">
+                <td>  ${element.nombre} </td>
+                <td>  ${element.cantidad} </td>
+                <td>  $ ${element.precio} </td> 
+                <td>  <button onclick=quitarProductoDeCarrito(${element.idPrducto})> Quitar </button> </td> 
+                </tr>`
+    })
+}
+
+function quitarProductoDeCarrito (idProducto) {
+    carritoDeProductos = carritoDeProductos.filter((producto) => producto.idPrducto !== idProducto)
+    irCarrito()
+}
 
 /* const ProductoBuscado = productos.find((producto) => { 
     return  producto.id === 4
